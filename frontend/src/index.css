@@ -1,0 +1,6 @@
+@import "../node_modules/flowbite/dist/flowbite.css";
+@import "../node_modules/pagedone/src/css/pagedone.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+

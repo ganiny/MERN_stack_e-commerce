@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <title>Vite + React</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+  <script>
+    // count-down timer
+    let dest = new Date("may 20, 2025 10:00:00").getTime();
+    let x = setInterval(function () {
+      let now = new Date().getTime();
+      let diff = dest - now;
+
+      // Check if the countdown has reached zero or negative
+      if (diff <= 0) {
+        clearInterval(x); // Stop the countdown
+        return; // Exit the function
+      }
+
+      let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      if (days < 10) {
+        days = `0${days}`;
+      }
+      if (hours < 10) {
+        hours = `0${hours}`;
+      }
+      if (minutes < 10) {
+        minutes = `0${minutes}`;
+      }
+      if (seconds < 10) {
+        seconds = `0${seconds}`;
+      }
+
+      // Get elements by class name
+      let countdownElements = document.getElementsByClassName("countdown-element");
+
+      // Loop through the elements and update their content
+      for (let i = 0; i < countdownElements.length; i++) {
+        let className = countdownElements[i].classList[1]; // Get the second class name
+        switch (className) {
+          case "days":
+            countdownElements[i].innerHTML = days;
+            break;
+          case "hours":
+            countdownElements[i].innerHTML = hours;
+            break;
+          case "minutes":
+            countdownElements[i].innerHTML = minutes;
+            break;
+          case "seconds":
+            countdownElements[i].innerHTML = seconds;
+            break;
+          default:
+            break;
+        }
+      }
+    }, 1000);
+  </script>
+  
+</body>
+
+</html>
+
+<!--
+  متطلبات التطبيق:
+
+تصميم تطبيق يتناسب تلقائيًا مع أحجام شاشات الأجهزة المختلفة (تصميم متجاوب).
+إضافة خاصية التوثيق(Authentication) (تسجيل الدخول والتسجيل).
+إضافة خاصية لإضافة المنتجات إلى المفضلة.
+إضافة خاصية السلة(cart) (checkout)وعملية الدفع.
+إضافة خاصية البحث عن المنتجات.
+إضافة خاصية التقييمات.
+إنشاء كافة الصفحات الموجودة في التصميم.
+يجب استخدام مكتبة React لهذا المشروع.
+ -->
