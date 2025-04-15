@@ -3,7 +3,7 @@ import axios from "axios";
 import { getAllProducts, getSingleProduct } from "../slices/productsSlice";
 import { toast } from "react-toastify";
 
-const API = axios.create({ baseURL: "https://mangrove-pear-heliotrope.glitch.me/api/products" });
+const API = axios.create({ baseURL: "https://amusing-big-antimatter.glitch.me/api/products" });
 
 // Get All Products
 export function getProducts(category, keyword) {

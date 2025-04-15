@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
 export function fetchWishlist(productId, token) {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`https://mangrove-pear-heliotrope.glitch.me/api/users/wishlist/${productId}`,null,{
+      const { data } = await axios.put(`https://amusing-big-antimatter.glitch.me/api/users/wishlist/${productId}`,null,{
         headers: {
           Authorization: `Bearer ${token}`,
         },
