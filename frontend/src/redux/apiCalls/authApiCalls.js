@@ -2,7 +2,7 @@ import axios from "axios";
 import { signin, signout, signup } from "../slices/authSlice";
 import { toast } from "react-toastify";
 
-const API = axios.create({ baseURL: "http://localhost:8000/api/auth" });
+const API = axios.create({ baseURL: "https://mangrove-pear-heliotrope.glitch.me/api/auth" });
 
 // Sign up
 export function signupUser(user) {
