@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
 export function addProductToCart(productId, token) {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`https://amusing-big-antimatter.glitch.me/api/users/cart/add/${productId}`,null,{
+      const { data } = await axios.put(`http://localhost:8000/api/users/cart/add/${productId}`,null,{
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -25,7 +25,7 @@ export function addProductToCart(productId, token) {
 export function removeProductFromCart(productId, token) {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`https://amusing-big-antimatter.glitch.me/api/users/cart/remove/${productId}`,null,{
+      const { data } = await axios.put(`http://localhost:8000/api/users/cart/remove/${productId}`,null,{
         headers: {
           Authorization: `Bearer ${token}`,
         },
