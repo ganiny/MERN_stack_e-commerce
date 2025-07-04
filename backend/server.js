@@ -6,7 +6,7 @@ const hpp = require("hpp");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const rateLimiting = require("express-rate-limit");
-const { notFound, errorHandler } = require("./middlewares/errors");
+const { errorHandler } = require("./middlewares/errors");
 const path = require("path");
 const helmet = require("helmet");
 const cors = require("cors");
@@ -63,7 +63,7 @@ app.use("/create-checkout-session", require("./routes/paymentRoute"));
 
 
 //404 handler
-app.use(notFound);
+// app.use(notFound);
 
 //Error handler
 app.use(errorHandler);
