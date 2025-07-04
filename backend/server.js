@@ -51,16 +51,13 @@ app.use(
 );
 
 //CORS policy
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-}));
+app.use(cors({}));
 
 //Routes
 app.use("/api/auth", require("./routes/authRoute"));
 app.use("/api/products", require("./routes/productsRoute"));
 app.use("/api/users", require("./routes/usersRoute"));
 app.use("/create-checkout-session", require("./routes/paymentRoute"));
-
 
 //404 handler
 // app.use(notFound);

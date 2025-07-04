@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
 export function fetchWishlist(productId, token) {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`http://localhost:8000/api/users/wishlist/${productId}`,null,{
+      const { data } = await axios.put(`https://mern-stack-e-commerce-2byo.vercel.app/api/users/wishlist/${productId}`,null,{
         headers: {
           Authorization: `Bearer ${token}`,
         },
