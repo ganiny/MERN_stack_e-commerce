@@ -22,6 +22,7 @@ import ResetPasswordPage from "./pages/ResetPassword";
 import ProductsListPage from "./pages/ProductsList";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import PaymentFailurePage from "./pages/PaymentFailurePage";
+import OAuthSuccessPage from "./pages/OAuthSuccessPage";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -57,6 +58,7 @@ function App() {
           <Route path="/products" element={<ProductsListPage />} />
           <Route path="/products/:id" element={<ProductDetailsPage />} />
         </Route>
+        <Route path="/oauth-success" element={<OAuthSuccessPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>

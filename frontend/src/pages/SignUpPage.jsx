@@ -20,6 +20,10 @@ function SignUpPage() {
     dispatch(signupUser(form));
   };
 
+  const handleGoogleLogin = () => {
+  window.open("http://localhost:8000/api/auth/google", "_self");
+};
+
   return (
     <div className="mb-36 mt-16 h-screen bg-white">
       <div className="grid h-full items-center gap-8 md:grid-cols-2">
@@ -90,6 +94,7 @@ function SignUpPage() {
               <button
                 type="button"
                 className="flex w-full items-center justify-center gap-4 rounded-[4px] border border-[#00000066] bg-white px-32 py-4 font-poppins text-base font-normal tracking-wider text-black"
+                onClick={handleGoogleLogin}
               >
                 <div>
                   <svg

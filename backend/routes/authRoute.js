@@ -23,11 +23,11 @@ router.get(
   passport.authenticate("google", { session: false }),
   (req, res) => {
     const token = jwt.sign(
-        { id: this._id, isAdmin: this.isAdmin },
-        process.env.JWT_SECRET,
-        { expiresIn: "1h" }
-      );
-    res.redirect(`${process.env.FRONTEND_URL}/?token=${token}`);
+      { id: req.user._id, isAdmin: req.user.isAdmin },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+    res.redirect(`${process.env.FRONTEND_URL}/oauth-success?token=${token}`);
   }
 );
 
