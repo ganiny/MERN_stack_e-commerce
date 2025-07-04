@@ -38,7 +38,7 @@ function CartPage() {
       products: cart,
       quantities: Object.values(quantities),
     };
-    const response = await fetch("http://localhost:8000/create-checkout-session",{
+    const response = await fetch("https://mern-stack-e-commerce-2byo.vercel.app/create-checkout-session",{
       method: "POST",
       headers:{
         "Content-Type": "application/json"
@@ -167,7 +167,7 @@ function CartPage() {
               type="button"
               className="mb-4 flex w-full items-center justify-center text-nowrap rounded bg-[#DB4444] px-12 py-4 font-poppins text-base font-normal tracking-wider text-[#fafafa]"
             >
-              Procees to checkout
+              Proceed to checkout
             </button>
           </div>
         </div>
