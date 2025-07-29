@@ -1,20 +1,18 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { removeProductFromCart } from "../redux/apiCalls/cartApiCalls";
+// import { useDispatch, useSelector } from "react-redux";
+// import { removeProductFromCart } from "../redux/apiCalls/cartApiCalls";
 
 function PaymentSuccessPage() {
-  const cart = useSelector((state) => state.cart.cart.cart) ?? [];
-  const user = useSelector((state) => state.auth.user);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    cart?.map((item)=>{
-      setTimeout(()=>{
-        dispatch(removeProductFromCart(item._id, user.token));
-      }, 50);
-    });
-  }, []);
+  // let cart = useSelector((state) => state.cart.cart.cart) ?? [];
+  // const user = useSelector((state) => state.auth.user);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   cart?.map((item)=>{
+  //     dispatch(removeProductFromCart(item._id, user.token));
+  //   });
+    
+  // }, []);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100">
