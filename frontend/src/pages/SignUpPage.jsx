@@ -1,16 +1,15 @@
-
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { signupUser } from "../redux/apiCalls/authApiCalls";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function SignUpPage() {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
   const dispatch = useDispatch();
   useEffect(() => {
-    window.scrollTo({top: 0, left: 0})
-  },[]);
-  
+    window.scrollTo({ top: 0, left: 0 });
+  }, []);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -20,9 +19,9 @@ function SignUpPage() {
     dispatch(signupUser(form));
   };
 
-  const handleGoogleLogin = () => {
-  window.open("http://localhost:8000/api/auth/google", "_self");
-};
+  //   const handleGoogleLogin = () => {
+  //   window.open("http://localhost:8000/api/auth/google", "_self");
+  // };
 
   return (
     <div className="mb-36 mt-16 h-screen bg-white">
@@ -91,7 +90,7 @@ function SignUpPage() {
               >
                 Creat an account
               </button>
-              <button
+              {/* <button
                 type="button"
                 className="flex w-full items-center justify-center gap-4 rounded-[4px] border border-[#00000066] bg-white px-32 py-4 font-poppins text-base font-normal tracking-wider text-black"
                 onClick={handleGoogleLogin}
@@ -135,7 +134,7 @@ function SignUpPage() {
                   </svg>
                 </div>
                 <p className="text-nowrap">Sign up with Google</p>
-              </button>
+              </button> */}
               <p className="mt-8 text-center font-poppins text-base font-normal text-black">
                 Already have an account?{" "}
                 <Link
