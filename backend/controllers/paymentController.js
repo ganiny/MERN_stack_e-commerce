@@ -26,8 +26,8 @@ module.exports.createCheckoutSession = asyncHandler(async (req, res) => {
     payment_method_types: ["card"],
     line_items: lineItems,
     mode: "payment",
-    success_url: "https://mern-stack-e-commerce-2byo.vercel.app/success",
-    cancel_url: "https://mern-stack-e-commerce-2byo.vercel.app/cancel",
+    success_url: "https://mern-stack-e-commerce-livid.vercel.app/success",
+    cancel_url: "https://mern-stack-e-commerce-livid.vercel.app/cancel",
   });
   const id = session.id;
   res.json({ id });
