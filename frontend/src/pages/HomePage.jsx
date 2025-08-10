@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../redux/apiCalls/productsApiCalls";
 import ProductCard from "../components/ProductCard";
+import ProductCarousel from "../components/ProductCarousel";
 
 const mensClothingCategory = "men's clothing";
 const womensClothingCategory = "women's clothing";
@@ -13,8 +14,9 @@ const electronicsCategory = "electronics";
 function HomePage() {
   const location = useLocation();
   const user = useSelector((state) => state.auth.user);
-  const products = useSelector((state) => state.products.products.products) ?? [];
-  const randomProducts = products.slice(0, 4);
+  const products =
+    useSelector((state) => state.products.products.products) ?? [];
+  const randomProducts = products.slice(0, 8);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts());
@@ -1423,20 +1425,26 @@ function HomePage() {
                     </p>
                   </div>
                 </Link>
-                <Link onClick={() => {
+                <Link
+                  onClick={() => {
                     dispatch(getProducts(womensClothingCategory, false));
                   }}
-                  to={"/products"} className="hs-carousel-slide !w-[170px]">
+                  to={"/products"}
+                  className="hs-carousel-slide !w-[170px]"
+                >
                   <div className="flex h-full flex-col items-center justify-center rounded border border-[#0000004D] bg-white">
                     <p className="mt-4 font-poppins text-base font-normal text-black">
                       {"Women's Clothing"}
                     </p>
                   </div>
                 </Link>
-                <Link onClick={() => {
+                <Link
+                  onClick={() => {
                     dispatch(getProducts(electronicsCategory, false));
                   }}
-                  to={"/products"} className="hs-carousel-slide !w-[170px]">
+                  to={"/products"}
+                  className="hs-carousel-slide !w-[170px]"
+                >
                   <div className="flex h-full flex-col items-center justify-center rounded border border-[#0000004D] bg-white">
                     <svg
                       width={56}
@@ -1493,20 +1501,26 @@ function HomePage() {
                     </p>
                   </div>
                 </Link>
-                <Link onClick={() => {
+                <Link
+                  onClick={() => {
                     dispatch(getProducts(mensClothingCategory, false));
                   }}
-                  to={"/products"} className="hs-carousel-slide !w-[170px]">
+                  to={"/products"}
+                  className="hs-carousel-slide !w-[170px]"
+                >
                   <div className="flex h-full flex-col items-center justify-center rounded border border-[#0000004D] bg-white">
                     <p className="mt-4 font-poppins text-base font-normal text-black">
                       {"Men's Clothing"}
                     </p>
                   </div>
                 </Link>
-                <Link onClick={() => {
+                <Link
+                  onClick={() => {
                     dispatch(getProducts(electronicsCategory, false));
                   }}
-                  to={"/products"} className="hs-carousel-slide !w-[170px]">
+                  to={"/products"}
+                  className="hs-carousel-slide !w-[170px]"
+                >
                   <div className="flex h-full flex-col items-center justify-center rounded border border-[#0000004D] bg-white">
                     <svg
                       width={56}
@@ -1577,20 +1591,26 @@ function HomePage() {
                     </p>
                   </div>
                 </Link>
-                <Link onClick={() => {
+                <Link
+                  onClick={() => {
                     dispatch(getProducts(jeweleryCategory, false));
                   }}
-                  to={"/products"} className="hs-carousel-slide !w-[170px]">
+                  to={"/products"}
+                  className="hs-carousel-slide !w-[170px]"
+                >
                   <div className="flex h-full flex-col items-center justify-center rounded border border-[#0000004D] bg-white">
                     <p className="mt-4 font-poppins text-base font-normal text-black">
                       {"Jewelery"}
                     </p>
                   </div>
                 </Link>
-                <Link onClick={() => {
+                <Link
+                  onClick={() => {
                     dispatch(getProducts(electronicsCategory, false));
                   }}
-                  to={"/products"} className="hs-carousel-slide !w-[170px]">
+                  to={"/products"}
+                  className="hs-carousel-slide !w-[170px]"
+                >
                   <div className="flex h-full flex-col items-center justify-center rounded bg-[#DB4444]">
                     <svg
                       width={56}
@@ -1627,10 +1647,13 @@ function HomePage() {
                     </p>
                   </div>
                 </Link>
-                <Link onClick={() => {
+                <Link
+                  onClick={() => {
                     dispatch(getProducts(electronicsCategory, false));
                   }}
-                  to={"/products"} className="hs-carousel-slide !w-[170px]">
+                  to={"/products"}
+                  className="hs-carousel-slide !w-[170px]"
+                >
                   <div className="flex h-full flex-col items-center justify-center rounded border border-[#0000004D] bg-white">
                     <svg
                       width={56}
@@ -1674,10 +1697,13 @@ function HomePage() {
                     </p>
                   </div>
                 </Link>
-                <Link onClick={() => {
+                <Link
+                  onClick={() => {
                     dispatch(getProducts(electronicsCategory, false));
                   }}
-                  to={"/products"} className="hs-carousel-slide !w-[170px]">
+                  to={"/products"}
+                  className="hs-carousel-slide !w-[170px]"
+                >
                   <div className="flex h-full flex-col items-center justify-center rounded border border-[#0000004D] bg-white">
                     <svg
                       width={56}
@@ -1728,10 +1754,6 @@ function HomePage() {
                     </p>
                   </div>
                 </Link>
-                
-               
-                
-                
               </div>
             </div>
           </div>
@@ -1804,18 +1826,10 @@ function HomePage() {
             </button>
           </Link>
         </div>
-        <div className="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
-        {randomProducts?.map((product) => (
-          <ProductCard 
-          key={product?._id}
-          id={product?._id}
-          mainImage={product?.mainImage}
-          title={product?.title}
-          price={product?.price}
-          reviews={product?.reviews}
-           />
-        ))}
-        </div>
+        <ProductCarousel
+          products={randomProducts}
+          title="Best Selling Products"
+        />
       </div>
 
       <div className="flex h-full w-full items-start justify-center bg-black">
@@ -2666,16 +2680,16 @@ function HomePage() {
           </button>
         </div>
         <div className="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
-        {randomProducts?.map((product) => (
-          <ProductCard 
-          key={product?._id}
-          id={product?._id}
-          mainImage={product?.mainImage}
-          title={product?.title}
-          price={product?.price}
-          reviews={product?.reviews}
-           />
-        ))}
+          {randomProducts?.map((product) => (
+            <ProductCard
+              key={product?._id}
+              id={product?._id}
+              mainImage={product?.mainImage}
+              title={product?.title}
+              price={product?.price}
+              reviews={product?.reviews}
+            />
+          ))}
         </div>
         <div className="mb-[60px] mt-[60px] flex items-center justify-center">
           <Link

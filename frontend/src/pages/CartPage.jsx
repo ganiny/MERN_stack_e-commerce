@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 function CartPage() {
   const [subtotals, setSubtotals] = useState({});
-  const [quantities, setQuantities] = useState({}); 
+  const [quantities, setQuantities] = useState({});
   const cart = useSelector((state) => state.cart.cart.cart) ?? [];
 
   const updateSubtotal = (id, subtotal) => {
@@ -31,26 +31,26 @@ function CartPage() {
   }, []);
 
   const handlePayment = async () => {
-    const stripe = await loadStripe(
-      "pk_test_51QotcWRtpDBoq2iRhlmAq8Og2mBw2yFbHJOh1HMiWB7ZEQh5OnhVL5FWUs4mYYaob5iRXSrqQWYJG4Y3iMD29Epk00OKJX6EwJ",
-    );
+    const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
     const body = {
       products: cart,
       quantities: Object.values(quantities),
     };
-    const response = await fetch("https://mern-stack-e-commerce-2byo.vercel.app/create-checkout-session",{
-      method: "POST",
-      headers:{
-        "Content-Type": "application/json"
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/create-checkout-session`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
       },
+    );
 
-      body: JSON.stringify(body), 
-    });
-    
     const session = await response.json();
-    const result =  stripe.redirectToCheckout({sessionId : session.id});
+    const result = await stripe.redirectToCheckout({ sessionId: session.id });
     if (result.error) {
-      toast(result.error);
+      toast(result.error.message || "Payment error");
     }
   };
 
@@ -90,7 +90,10 @@ function CartPage() {
       <div className="mb-20 flex flex-col">
         {cart?.length > 0 ? (
           <div className="mb-6 overflow-x-auto xl:overflow-x-hidden">
-            <table id="cartTable" className="w-full font-poppins text-sm font-normal text-black">
+            <table
+              id="cartTable"
+              className="w-full font-poppins text-sm font-normal text-black"
+            >
               <thead className="w-full">
                 <tr className="justify-items-between grid grid-cols-[30px,150px,20px,20px,20px] gap-40 border-b border-[#0000000D] pb-6">
                   <td className="pl-10 text-left"></td>

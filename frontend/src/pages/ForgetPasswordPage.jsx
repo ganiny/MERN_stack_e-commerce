@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { signinUser } from "../redux/apiCalls/authApiCalls";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 function ForgetPasswordPage() {
-  const [form, setForm] = useState({ email: ""});
+  const [form, setForm] = useState({ email: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   useEffect(() => {
-    window.scrollTo({top: 0, left: 0})
-  },[]);
+    window.scrollTo({ top: 0, left: 0 });
+  }, []);
   useEffect(() => {
     if (user) {
       navigate("/");
@@ -23,7 +22,20 @@ function ForgetPasswordPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(signinUser(form));
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/forgot-password`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        },
+      );
+      await res.json();
+      // We intentionally do not expose whether email exists
+    } catch (err) {
+      // no-op
+    }
   };
   return (
     <div className="mb-36 mt-16 h-screen bg-white">
@@ -74,6 +86,5 @@ function ForgetPasswordPage() {
     </div>
   );
 }
-
 
 export default ForgetPasswordPage;

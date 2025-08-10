@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { signin } from "../redux/slices/authSlice";
 import { useNavigate, useLocation } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 function OAuthSuccessPage() {
   const dispatch = useDispatch();
@@ -12,10 +13,20 @@ function OAuthSuccessPage() {
     const params = new URLSearchParams(location.search);
     const token = params.get("token");
     if (token) {
-      // You may want to fetch user info from backend using the token
-      // For now, just store token and redirect
-      localStorage.setItem("userInfo", JSON.stringify({ token }));
-      dispatch(signin({ token }));
+      let decoded;
+      try {
+        decoded = jwtDecode(token);
+      } catch (e) {
+        decoded = null;
+      }
+      const userPayload = decoded
+        ? { id: decoded.id, isAdmin: decoded.isAdmin }
+        : null;
+      const payload = userPayload
+        ? { userWithoutPassword: userPayload, token }
+        : { token };
+      localStorage.setItem("userInfo", JSON.stringify(payload));
+      dispatch(signin(payload));
       navigate("/");
     }
   }, [location, dispatch, navigate]);

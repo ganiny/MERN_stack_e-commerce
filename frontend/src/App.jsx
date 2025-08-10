@@ -39,12 +39,24 @@ function App() {
             path="/signin"
             element={!user ? <SignInPage /> : <Navigate to={"/"} />}
           />
-          <Route path="/wishlist" element={user ? <WishListPage />: <Navigate to={"/"} />} />
-          <Route path="/cart" element={user ? <CartPage /> : <Navigate to={"/"} />} />
-          <Route path="/checkout" element={user ? <CheckOutPage /> : <Navigate to={"/"} />} />
-          <Route path="/account" element={user ? <AccountPage /> : <Navigate to={"/"} />} />
-          <Route path="/success" element={user ? <PaymentSuccessPage /> : <Navigate to={"/"} />} />
-          <Route path="/cancel" element={user ? <PaymentFailurePage /> : <Navigate to={"/"} />} />
+          <Route
+            path="/wishlist"
+            element={user ? <WishListPage /> : <Navigate to={"/"} />}
+          />
+          <Route
+            path="/cart"
+            element={user ? <CartPage /> : <Navigate to={"/"} />}
+          />
+          <Route
+            path="/checkout"
+            element={user ? <CheckOutPage /> : <Navigate to={"/"} />}
+          />
+          <Route
+            path="/account"
+            element={user ? <AccountPage /> : <Navigate to={"/"} />}
+          />
+          <Route path="/success" element={<PaymentSuccessPage />} />
+          <Route path="/cancel" element={<PaymentFailurePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route

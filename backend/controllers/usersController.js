@@ -18,8 +18,8 @@ module.exports.toggleWishlistItemCtrl = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: "Product not found!" });
   }
 
-  let isProductAlreadyAddedInWishlistFromSpecificUser = user.wishlist.includes(
-    req.params.id
+  const isProductAlreadyAddedInWishlistFromSpecificUser = user.wishlist.some(
+    (itemId) => itemId.toString() === req.params.id
   );
 
   if (isProductAlreadyAddedInWishlistFromSpecificUser) {
@@ -36,7 +36,7 @@ module.exports.toggleWishlistItemCtrl = asyncHandler(async (req, res) => {
     user = await User.findByIdAndUpdate(
       loggedInUserId,
       {
-        $push: {
+        $addToSet: {
           wishlist: product._id,
         },
       },
@@ -64,17 +64,19 @@ module.exports.addItemToCartCtrl = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: "Product not found!" });
   }
 
-  let isProductAlreadyAddedInCartFromSpecificUser = user.cart.includes(
-    req.params.id
+  const isProductAlreadyAddedInCartFromSpecificUser = user.cart.some(
+    (itemId) => itemId.toString() === req.params.id
   );
 
   if (isProductAlreadyAddedInCartFromSpecificUser) {
-    return;
+    // Return current cart without modifying to avoid hanging the request
+    const populatedUser = await User.findById(loggedInUserId).populate("cart");
+    return res.status(200).json({ cart: populatedUser.cart });
   } else {
     user = await User.findByIdAndUpdate(
       loggedInUserId,
       {
-        $push: {
+        $addToSet: {
           cart: product._id,
         },
       },

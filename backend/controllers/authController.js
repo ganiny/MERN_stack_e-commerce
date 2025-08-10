@@ -16,13 +16,13 @@ module.exports.signupUserCtrl = asyncHandler(async (req, res) => {
   // Validation
   const { error } = validateSignupUser(req.body);
   if (error) {
-    return res.status(400).json({ message: error.details[0].message});
+    return res.status(400).json({ message: error.details[0].message });
   }
 
   // Is user already exist
   let user = await User.findOne({ email: req.body.email });
   if (user) {
-    return res.status(400).json({ message: "User is alreay existed!" });
+    return res.status(409).json({ message: "User already exists." });
   }
 
   // hash password
@@ -61,7 +61,7 @@ module.exports.signinUserCtrl = asyncHandler(async (req, res) => {
   // Validation
   const { error } = validateSigninUser(req.body);
   if (error) {
-    return res.status(400).json({ message: error.details[0].message});
+    return res.status(400).json({ message: error.details[0].message });
   }
 
   // Is user already exist
@@ -77,7 +77,7 @@ module.exports.signinUserCtrl = asyncHandler(async (req, res) => {
   );
 
   if (!isPasswordMatch) {
-    return res.status(400).json({ message: "Invalid Email or Password!" });
+    return res.status(401).json({ message: "Invalid email or password." });
   }
 
   //TODO - Sending Email(verify account if not verified)

@@ -4,14 +4,21 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeProductFromCart } from "../redux/apiCalls/cartApiCalls";
 
-function CartTableRow({ id, image, title, price, onSubtotalChange, onQuantityChange }) {
+function CartTableRow({
+  id,
+  image,
+  title,
+  price,
+  onSubtotalChange,
+  onQuantityChange,
+}) {
   const [quantity, setQuantity] = useState(1);
   const [subtotal, setSubtotal] = useState(price);
 
   useEffect(() => {
     onSubtotalChange(id, subtotal);
     onQuantityChange(id, quantity);
-  }, [quantity, id]);
+  }, [id, quantity, subtotal]);
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
@@ -49,8 +56,9 @@ function CartTableRow({ id, image, title, price, onSubtotalChange, onQuantityCha
           placeholder="1"
           value={quantity}
           onChange={(e) => {
-            setQuantity(e.target.value);
-            setSubtotal(e.target.value * price);
+            const nextQty = Math.max(1, Number(e.target.value) || 1);
+            setQuantity(nextQty);
+            setSubtotal(nextQty * price);
           }}
         />
       </td>

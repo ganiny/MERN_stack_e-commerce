@@ -11,42 +11,32 @@ module.exports.getAllProductsCtrl = asyncHandler(async (req, res) => {
   const { pageNumber, category, keyword } = req.query;
 
   const PRODUCTS_PER_PAGE = 8;
+  const page = Math.max(parseInt(pageNumber || 1, 10), 1);
 
-  let products;
-
-  if (pageNumber) {
-    products = await Product.find()
-      .skip((pageNumber - 1) * PRODUCTS_PER_PAGE)
-      .limit(PRODUCTS_PER_PAGE)
-      .sort({ createdAt: -1 });
-  } else if (category) {
-    products = await Product.find({ category }).sort({ createdAt: -1 });
-  } else if (keyword) {
-    products = await Product.find({
-      $or: [
-        { title: { $regex: keyword, $options: "i" } },
-        { description: { $regex: keyword, $options: "i" } },
-      ],
-    }).sort({ createdAt: -1 });
-  } else if (keyword && pageNumber) {
-    products = await Product.find({
-      $or: [
-        { title: { $regex: keyword, $options: "i" } },
-        { description: { $regex: keyword, $options: "i" } },
-      ],
-    })
-      .skip((pageNumber - 1) * PRODUCTS_PER_PAGE)
-      .limit(PRODUCTS_PER_PAGE)
-      .sort({ createdAt: -1 });
-  } else if (category && pageNumber) {
-    products = await Product.find({ category })
-      .skip((pageNumber - 1) * PRODUCTS_PER_PAGE)
-      .limit(PRODUCTS_PER_PAGE)
-      .sort({ createdAt: -1 });
-  } else {
-    products = await Product.find().sort({ createdAt: -1 });
+  const filter = {};
+  if (category) {
+    filter.category = category;
   }
-  res.status(200).json({ products });
+  if (keyword) {
+    filter.$or = [
+      { title: { $regex: keyword, $options: "i" } },
+      { description: { $regex: keyword, $options: "i" } },
+    ];
+  }
+
+  const query = Product.find(filter).sort({ createdAt: -1 });
+  const totalItems = await Product.countDocuments(filter);
+
+  const products = await query
+    .skip((page - 1) * PRODUCTS_PER_PAGE)
+    .limit(PRODUCTS_PER_PAGE);
+
+  const totalPages = Math.ceil(totalItems / PRODUCTS_PER_PAGE) || 1;
+
+  res.status(200).json({
+    products,
+    pagination: { page, pageSize: PRODUCTS_PER_PAGE, totalItems, totalPages },
+  });
 });
 
 /**

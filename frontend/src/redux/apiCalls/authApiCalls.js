@@ -2,7 +2,9 @@ import axios from "axios";
 import { signin, signout, signup } from "../slices/authSlice";
 import { toast } from "react-toastify";
 
-const API = axios.create({ baseURL: "https://mern-stack-e-commerce-2byo.vercel.app/api/auth" });
+const API = axios.create({
+  baseURL: `${import.meta.env.VITE_API_URL}/api/auth`,
+});
 
 // Sign up
 export function signupUser(user) {
@@ -11,7 +13,9 @@ export function signupUser(user) {
       const { data } = await API.post("/signup", user);
       dispatch(signup(data));
       localStorage.setItem("userInfo", JSON.stringify(data));
-      toast.success(`Your Sign Up is Successful!\nWelcome ${data.userWithoutPassword.username}`);
+      toast.success(
+        `Your Sign Up is Successful!\nWelcome ${data.userWithoutPassword?.username || ""}`,
+      );
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -25,8 +29,9 @@ export function signinUser(user) {
       const { data } = await API.post("/signin", user);
       dispatch(signin(data));
       localStorage.setItem("userInfo", JSON.stringify(data));
-      toast.success(`Your Sign In is Successful!\nWelcome ${data.userWithoutPassword.username}`);
-      
+      toast.success(
+        `Your Sign In is Successful!\nWelcome ${data.userWithoutPassword?.username || ""}`,
+      );
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -38,7 +43,7 @@ export function signoutUser() {
   return (dispatch) => {
     dispatch(signout());
     localStorage.clear();
-  }
+  };
 }
 
 // Google Sign In

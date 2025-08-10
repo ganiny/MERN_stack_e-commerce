@@ -1,20 +1,7 @@
-const path = require("path");
 const multer = require("multer");
 
-
-// Photo Storage
-const photoStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "../images"));
-  },
-  filename: function (req, file, cb) {
-    if (file) {
-      cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
-    } else {
-      cb(null, false);
-    }
-  },
-});
+// Photo Storage (memory for serverless)
+const photoStorage = multer.memoryStorage();
 
 // Photo Upload Middleware
 module.exports.photoUpload = multer({
@@ -27,5 +14,4 @@ module.exports.photoUpload = multer({
     }
   },
   limits: { fileSize: 1024 * 1024 }, // 1 megabyte
-}).single("image"); // Upload one image only 
-
+}).single("image"); // Upload one image only

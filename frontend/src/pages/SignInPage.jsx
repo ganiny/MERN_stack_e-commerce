@@ -3,15 +3,14 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { signinUser } from "../redux/apiCalls/authApiCalls";
 
-
 function SignInPage() {
   const [form, setForm] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
-    window.scrollTo({top: 0, left: 0})
-  },[]);
-  
+    window.scrollTo({ top: 0, left: 0 });
+  }, []);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -81,6 +80,14 @@ function SignInPage() {
               >
                 Forget Password?
               </Link>
+            </div>
+            <div className="mt-4">
+              <a
+                href={`${import.meta.env.VITE_API_URL}/api/auth/google`}
+                className="inline-flex items-center justify-center gap-2 rounded border px-4 py-3 text-sm"
+              >
+                Continue with Google
+              </a>
             </div>
           </form>
         </div>

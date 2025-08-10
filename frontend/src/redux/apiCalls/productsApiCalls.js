@@ -1,17 +1,19 @@
-
 import axios from "axios";
 import { getAllProducts, getSingleProduct } from "../slices/productsSlice";
 import { toast } from "react-toastify";
 
-const API = axios.create({ baseURL: "https://mern-stack-e-commerce-2byo.vercel.app/api/products" });
+const API = axios.create({
+  baseURL: `${import.meta.env.VITE_API_URL}/api/products`,
+});
 
 // Get All Products
 export function getProducts(category, keyword) {
-  
   return async (dispatch) => {
     if (category) {
       try {
-        const { data } = await API.get(`?category=${category}`);
+        const { data } = await API.get(
+          `?category=${encodeURIComponent(category)}`,
+        );
         dispatch(getAllProducts(data));
         localStorage.setItem("products", JSON.stringify(data));
       } catch (error) {
@@ -19,15 +21,17 @@ export function getProducts(category, keyword) {
       }
     } else if (keyword) {
       try {
-        const { data } = await API.get(`?keyword=${keyword}`);
+        const { data } = await API.get(
+          `?keyword=${encodeURIComponent(keyword)}`,
+        );
         dispatch(getAllProducts(data));
         localStorage.setItem("products", JSON.stringify(data));
       } catch (error) {
         toast.error(error.response.data.message);
       }
-    }else {
+    } else {
       try {
-        const { data } = await API.get("/");
+        const { data } = await API.get("/?pageNumber=1");
         dispatch(getAllProducts(data));
         localStorage.setItem("products", JSON.stringify(data));
       } catch (error) {

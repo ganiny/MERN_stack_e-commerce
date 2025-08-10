@@ -46,6 +46,8 @@ const UserSchema = new mongoose.Schema(
       default: false,
     },
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
+    resetPasswordToken: { type: String, default: null },
+    resetPasswordExpires: { type: Date, default: null },
   },
   {
     timestamps: true,
@@ -115,5 +117,5 @@ module.exports = {
   validateSigninUser,
   validateUpdateUser,
   validateNewPassword,
-  validateEmail
+  validateEmail,
 };

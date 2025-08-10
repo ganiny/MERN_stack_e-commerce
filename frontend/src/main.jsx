@@ -7,7 +7,7 @@ import "../node_modules/pagedone/src/js/pagedone.js";
 import store from "./redux/store.js";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.css";
 import "../node_modules/flowbite/dist/flowbite.js";
 
 createRoot(document.getElementById("root")).render(

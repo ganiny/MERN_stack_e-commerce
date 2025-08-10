@@ -1,15 +1,14 @@
 const router = require("express").Router();
-const {getAllProductsCtrl, getSingleProductCtrl} = require("../controllers/productsController");
+const {
+  getAllProductsCtrl,
+  getSingleProductCtrl,
+} = require("../controllers/productsController");
 const validateObjectId = require("../middlewares/validateObjectId");
 
 // /api/products
-router
-  .route("/")
-  .get(getAllProductsCtrl);
+router.route("/").get(getAllProductsCtrl);
 
 // /api/products/:id
-router
-  .route("/:id")
-  .get(getSingleProductCtrl);
+router.route("/:id").get(validateObjectId, getSingleProductCtrl);
 
 module.exports = router;

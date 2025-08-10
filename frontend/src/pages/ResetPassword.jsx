@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { signinUser } from "../redux/apiCalls/authApiCalls";
+import { useNavigate, useParams } from "react-router-dom";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 function ResetPasswordPage() {
-  const [form, setForm] = useState({ password: ""});
+  const [form, setForm] = useState({ password: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { userId, token } = useParams();
   const user = useSelector((state) => state.auth.user);
   useEffect(() => {
-    window.scrollTo({top: 0, left: 0})
-  },[]);
+    window.scrollTo({ top: 0, left: 0 });
+  }, []);
   useEffect(() => {
     if (user) {
       navigate("/");
@@ -23,7 +23,19 @@ function ResetPasswordPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(signinUser(form));
+    try {
+      await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/reset-password/${userId}/${token}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        },
+      );
+      navigate("/signin");
+    } catch (err) {
+      // no-op
+    }
   };
   return (
     <div className="mb-36 mt-16 h-screen bg-white">

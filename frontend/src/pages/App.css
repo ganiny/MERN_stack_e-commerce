@@ -1,0 +1,8 @@
+/* Responsive helpers for carousels & grids */
+.hs-carousel .hs-carousel-body {
+    will-change: transform;
+}
+
+.hs-carousel-slide {
+    scroll-snap-align: start;
+}

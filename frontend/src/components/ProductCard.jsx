@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchWishlist } from "../redux/apiCalls/wishlistApiCalls";
 import { addProductToCart } from "../redux/apiCalls/cartApiCalls";
 
-function ProductCard({ id, title, mainImage, price, reviews }) {
+function ProductCard({ id, title, mainImage, price, reviews = [] }) {
   const [addToCartAppearOnHover, setAddToCartAppearOnHover] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
@@ -193,7 +193,9 @@ function ProductCard({ id, title, mainImage, price, reviews }) {
             </svg>
             Item Added To Cart
           </div>
-        ): (<></>)}
+        ) : (
+          <></>
+        )}
         <div className="mt-4 flex flex-col">
           <p className="line-clamp-1 font-poppins text-base font-medium text-black">
             {title}
@@ -207,11 +209,11 @@ function ProductCard({ id, title, mainImage, price, reviews }) {
               $1160
             </span>
           </div>
-            
+
           <div className="mt-2 flex items-center gap-2">
             <div className="-mt-[3px] flex items-center">
               <svg
-              className="h-5 w-5 text-yellow-400"
+                className="h-5 w-5 text-yellow-400"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -258,7 +260,7 @@ function ProductCard({ id, title, mainImage, price, reviews }) {
             </div>
 
             <p className="font-poppins text-sm font-semibold text-black opacity-50">
-              ({reviews.length})
+              ({Array.isArray(reviews) ? reviews.length : 0})
             </p>
           </div>
         </div>

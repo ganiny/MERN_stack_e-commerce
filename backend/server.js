@@ -11,9 +11,8 @@ const path = require("path");
 const helmet = require("helmet");
 const cors = require("cors");
 const passport = require("passport");
-const session = require("express-session");
 require("./config/passport");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+// const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 //connect to database
 connectToDB();
@@ -29,9 +28,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(morgan("dev"));
-app.use(session({ secret: "secret", resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
 //Helmet
 app.use(helmet());
@@ -51,7 +49,7 @@ app.use(
 );
 
 //CORS policy
-app.use(cors({}));
+app.use(cors({ origin: process.env.FRONTEND_URL }));
 
 //Routes
 app.use("/api/auth", require("./routes/authRoute"));
@@ -59,8 +57,8 @@ app.use("/api/products", require("./routes/productsRoute"));
 app.use("/api/users", require("./routes/usersRoute"));
 app.use("/create-checkout-session", require("./routes/paymentRoute"));
 
-//404 handler
-// app.use(notFound);
+// Simple healthcheck
+app.get("/healthz", (req, res) => res.status(200).json({ ok: true }));
 
 //Error handler
 app.use(errorHandler);

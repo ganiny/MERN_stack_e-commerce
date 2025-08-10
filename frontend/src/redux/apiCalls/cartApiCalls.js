@@ -1,18 +1,20 @@
 import axios from "axios";
 import { addToCart, removeFromCart } from "../slices/cartSlice";
-import {toast} from "react-toastify";
-
-
+import { toast } from "react-toastify";
 
 // Add Item To Cart
 export function addProductToCart(productId, token) {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`https://mern-stack-e-commerce-2byo.vercel.app/api/users/cart/add/${productId}`,null,{
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const { data } = await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/users/cart/add/${productId}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       dispatch(addToCart(data));
       localStorage.setItem("cart", JSON.stringify(data));
     } catch (error) {
@@ -25,11 +27,15 @@ export function addProductToCart(productId, token) {
 export function removeProductFromCart(productId, token) {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`https://mern-stack-e-commerce-2byo.vercel.app/api/users/cart/remove/${productId}`,null,{
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const { data } = await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/users/cart/remove/${productId}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       dispatch(removeFromCart(data));
       localStorage.setItem("cart", JSON.stringify(data));
     } catch (error) {
